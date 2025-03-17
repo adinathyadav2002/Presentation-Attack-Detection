@@ -35,7 +35,7 @@ function Upload() {
 
     try {
       const response = await axios.post(
-        "https://presentation-attack-detection.onrender.com/predict",
+        "https://presentation-attack-detection-rrwl.onrender.com/predict",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
