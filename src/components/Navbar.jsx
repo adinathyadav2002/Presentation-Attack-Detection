@@ -1,7 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import HelpOverlay from "./HelpOverlay";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -9,91 +26,191 @@ const Header = () => {
 
   return (
     <header>
-      <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 fixed w-full">
-        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-            PAD
-          </span>
-          <div className="flex items-center lg:order-2">
-            <a
-              href="#"
-              className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
-            >
-              Password
-            </a>
-            <a
-              href="#"
-              className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
-            >
-              How To Use?
-            </a>
-            <button
-              onClick={toggleMenu}
-              type="button"
-              className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-              aria-controls="mobile-menu-2"
-              aria-expanded={isMenuOpen}
-            >
-              <span className="sr-only">Open main menu</span>
-              {isMenuOpen ? (
-                <svg
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              ) : (
-                <svg
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              )}
-            </button>
-          </div>
-          <div
-            className={`${
-              isMenuOpen ? "flex" : "hidden"
-            } justify-between items-center w-full lg:flex lg:w-auto lg:order-1`}
-            id="mobile-menu-2"
-          >
-            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0 w-full">
-              {[
-                { item: "Home", to: "/" },
-                {
-                  item: "Github",
-                  to: "https://github.com/adinathyadav2002/Presentation-Attack-Detection",
-                },
-                { item: "Contact Us", to: "/contact" },
-                { item: "Related Documents", to: "/related-documents" },
-              ].map((item) => (
-                <li key={item.item}>
+      <nav
+        className={`fixed w-full z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md py-2"
+            : "bg-white dark:bg-gray-900 py-2"
+        }`}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <div className="flex-shrink-0">
+              <span className="flex items-center">
+                <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg p-1.5 mr-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
+                  </svg>
+                </div>
+                <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                  PAD
+                </span>
+              </span>
+            </div>
+
+            {/* Desktop Menu */}
+            <div className="hidden lg:flex items-center space-x-8">
+              <div className="flex space-x-6">
+                {[
+                  { item: "Home", to: "/" },
+                  {
+                    item: "Github",
+                    to: "https://github.com/adinathyadav2002/Presentation-Attack-Detection",
+                  },
+                  { item: "Contact Us", to: "/contact" },
+                ].map((item) => (
                   <a
-                    href={`${item.to}`}
-                    target="_blank"
-                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                    key={item.item}
+                    href={item.to}
+                    target={item.to.startsWith("http") ? "_blank" : "_self"}
+                    className="relative font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 py-2 group"
                   >
                     {item.item}
+                    <span className="absolute inset-x-0 bottom-0 h-0.5 bg-indigo-600 transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
                   </a>
-                </li>
-              ))}
-            </ul>
+                ))}
+              </div>
+
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={() => setShowHelp(true)}
+                  className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 mr-1.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  How To Use?
+                </button>
+              </div>
+            </div>
+
+            {/* Mobile Menu Toggle */}
+            <div className="flex lg:hidden">
+              <button
+                onClick={toggleMenu}
+                type="button"
+                className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 focus:outline-none"
+                aria-controls="mobile-menu"
+                aria-expanded={isMenuOpen}
+              >
+                <span className="sr-only">Open main menu</span>
+                {isMenuOpen ? (
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          className={`${
+            isMenuOpen ? "block" : "hidden"
+          } lg:hidden bg-white dark:bg-gray-900 shadow-lg border-t dark:border-gray-800`}
+          id="mobile-menu"
+        >
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            {[
+              { item: "Home", to: "/" },
+              {
+                item: "Github",
+                to: "https://github.com/adinathyadav2002/Presentation-Attack-Detection",
+              },
+              { item: "Contact Us", to: "/contact" },
+            ].map((item) => (
+              <a
+                key={item.item}
+                href={item.to}
+                target={item.to.startsWith("http") ? "_blank" : "_self"}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.item}
+              </a>
+            ))}
+            <div className="border-t border-gray-200 dark:border-gray-700 mt-4 pt-4 flex flex-col space-y-3 px-3">
+              <button
+                onClick={() => setShowHelp(true)}
+                className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center rounded-md font-medium shadow-md flex items-center justify-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 mr-1.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                How To Use?
+              </button>
+            </div>
           </div>
         </div>
       </nav>
+      <HelpOverlay isOpen={showHelp} onClose={() => setShowHelp(false)} />
+      {/* Add padding to ensure content doesn't hide behind the navbar */}
+      <div className="h-20"></div>
     </header>
   );
 };

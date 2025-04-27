@@ -89,16 +89,16 @@ function Upload() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
-      <div className="w-full max-w-xl bg-white rounded-2xl shadow-xl p-8 mt-20">
-        <h1 className="text-3xl font-bold mb-6 text-center text-indigo-700">
-          Iris Liveness Detection
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 sm:p-6">
+      <div className="w-full max-w-xl bg-white rounded-2xl shadow-xl p-4 sm:p-8">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center text-indigo-700">
+          Presentation Attack Detection
         </h1>
 
         {/* File Upload Area */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <div
-            className={`border-2 border-dashed rounded-xl p-6 text-center ${
+            className={`border-2 border-dashed rounded-xl p-4 sm:p-6 text-center ${
               file ? "border-indigo-400 bg-indigo-50" : "border-gray-300"
             }`}
           >
@@ -115,10 +115,10 @@ function Upload() {
             >
               {!preview ? (
                 <>
-                  <div className="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 mb-3 sm:mb-4 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-8 w-8"
+                      className="h-6 w-6 sm:h-8 sm:w-8"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -131,10 +131,10 @@ function Upload() {
                       />
                     </svg>
                   </div>
-                  <p className="text-lg font-medium text-gray-700">
-                    Drag & Drop or Click to Upload
+                  <p className="text-base sm:text-lg font-medium text-gray-700">
+                    Tap to Upload
                   </p>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-xs sm:text-sm text-gray-500 mt-1">
                     Supports JPG, PNG, JPEG files
                   </p>
                 </>
@@ -143,7 +143,7 @@ function Upload() {
                   <img
                     src={preview}
                     alt="Preview"
-                    className="w-48 h-48 object-cover rounded-lg border shadow-md mx-auto"
+                    className="w-32 h-32 sm:w-48 sm:h-48 object-cover rounded-lg border shadow-md mx-auto"
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 opacity-0 hover:opacity-100 transition-opacity rounded-lg">
                     <p className="text-white font-medium">Change Image</p>
@@ -154,10 +154,10 @@ function Upload() {
           </div>
 
           {fileName && (
-            <div className="mt-3 flex items-center justify-center text-gray-700">
+            <div className="mt-2 sm:mt-3 flex items-center justify-center text-gray-700 px-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 mr-1 text-indigo-500"
+                className="h-4 w-4 sm:h-5 sm:w-5 mr-1 text-indigo-500 flex-shrink-0"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -167,17 +167,17 @@ function Upload() {
                   clipRule="evenodd"
                 />
               </svg>
-              <p className="truncate max-w-xs">{fileName}</p>
+              <p className="truncate text-sm sm:text-base">{fileName}</p>
             </div>
           )}
         </div>
 
         {/* Upload Button */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-4 sm:mb-6">
           <button
             onClick={handleUpload}
             disabled={loading || !file}
-            className={`px-8 py-3 rounded-lg font-medium text-white shadow-md flex items-center justify-center w-48 transition-all ${
+            className={`px-6 py-2 sm:px-8 sm:py-3 rounded-lg font-medium text-white shadow-md flex items-center justify-center w-40 sm:w-48 transition-all ${
               loading || !file
                 ? "bg-indigo-300 cursor-not-allowed"
                 : "bg-indigo-600 hover:bg-indigo-700 hover:shadow-lg"
@@ -186,7 +186,7 @@ function Upload() {
             {loading ? (
               <>
                 <svg
-                  className="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                  className="animate-spin -ml-1 mr-2 h-4 w-4 sm:h-5 sm:w-5 text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -215,18 +215,18 @@ function Upload() {
 
         {/* Prediction Result */}
         {result && (
-          <div className="mb-8 p-5 bg-white border shadow-md rounded-xl overflow-hidden transform transition-all">
-            <h2 className="text-lg font-semibold text-gray-700 mb-3">
+          <div className="mb-6 p-4 sm:p-5 bg-white border shadow-md rounded-xl overflow-hidden transform transition-all">
+            <h2 className="text-base sm:text-lg font-semibold text-gray-700 mb-2 sm:mb-3">
               Analysis Result
             </h2>
             <div
-              className={`text-center p-3 rounded-lg ${
+              className={`text-center p-2 sm:p-3 rounded-lg ${
                 result === "Real"
                   ? "bg-green-100 border border-green-200"
                   : "bg-red-100 border border-red-200"
               }`}
             >
-              <p className="text-xl font-bold">
+              <p className="text-lg sm:text-xl font-bold">
                 <span
                   className={
                     result === "Real" ? "text-green-600" : "text-red-600"
@@ -235,7 +235,7 @@ function Upload() {
                   {result === "Real" ? "✓ Real" : "✗ Fake"}
                 </span>
               </p>
-              <p className="text-sm mt-1 text-gray-600">
+              <p className="text-xs sm:text-sm mt-1 text-gray-600">
                 {result === "Real"
                   ? "This appears to be a real, live iris scan."
                   : "This appears to be a presentation attack."}
@@ -247,11 +247,11 @@ function Upload() {
 
       {/* History Section */}
       {history.length > 0 && (
-        <div className="w-full max-w-xl bg-white rounded-2xl shadow-xl mt-6 p-6 overflow-hidden">
-          <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+        <div className="w-full max-w-xl bg-white rounded-2xl shadow-xl mt-4 sm:mt-6 p-4 sm:p-6 overflow-hidden">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-2 text-indigo-500"
+              className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-indigo-500"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -264,21 +264,43 @@ function Upload() {
             Previous Detections
           </h2>
 
-          <div className="overflow-y-auto max-h-80 pr-2 space-y-3">
+          <div className="overflow-y-auto max-h-60 sm:max-h-80 pr-1 sm:pr-2 space-y-2 sm:space-y-3">
             {history.map((item, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex flex-col sm:flex-row sm:items-center p-3 border rounded-lg hover:bg-gray-50 transition-colors gap-3"
               >
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center w-full">
                   <img
                     src={item.image}
                     alt={`Detection ${index + 1}`}
-                    className="w-16 h-16 object-cover rounded-lg border shadow-sm"
+                    className="w-16 h-16 object-cover rounded-lg border shadow-sm mr-3"
                   />
-                  <div>
-                    <p className="text-sm text-gray-500">{item.timestamp}</p>
-                    <p className="text-gray-800 font-medium truncate max-w-xs">
+                  <div className="flex-grow">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs sm:text-sm text-gray-500">
+                        {item.timestamp}
+                      </p>
+                      <button
+                        onClick={() => handleDelete(index)}
+                        className="text-gray-400 hover:text-red-500 transition-colors sm:hidden"
+                        title="Delete record"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <p className="text-sm sm:text-base text-gray-800 font-medium truncate max-w-full">
                       {item.name}
                     </p>
                     <span
@@ -294,7 +316,7 @@ function Upload() {
                 </div>
                 <button
                   onClick={() => handleDelete(index)}
-                  className="text-gray-400 hover:text-red-500 transition-colors"
+                  className="hidden sm:block text-gray-400 hover:text-red-500 transition-colors flex-shrink-0"
                   title="Delete record"
                 >
                   <svg
@@ -313,13 +335,20 @@ function Upload() {
               </div>
             ))}
           </div>
+
+          {/* Mobile view for empty state */}
+          {history.length === 0 && (
+            <div className="text-center py-6">
+              <p className="text-gray-500">No detection history yet</p>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Toast Notification */}
+      {/* Toast Notification - Improved for mobile */}
       {toast.show && (
         <div
-          className={`fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white flex items-center animate-fade-in-up ${
+          className={`fixed bottom-4 right-4 max-w-xs sm:max-w-md px-4 py-2 sm:px-6 sm:py-3 rounded-lg shadow-lg text-white flex items-center animate-fade-in-up z-50 ${
             toast.type === "success"
               ? "bg-green-500"
               : toast.type === "error"
@@ -327,11 +356,11 @@ function Upload() {
               : "bg-blue-500"
           }`}
         >
-          <span className="mr-2">
+          <span className="mr-2 flex-shrink-0">
             {toast.type === "success" ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-4 w-4 sm:h-5 sm:w-5"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -344,7 +373,7 @@ function Upload() {
             ) : toast.type === "error" ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-4 w-4 sm:h-5 sm:w-5"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -357,7 +386,7 @@ function Upload() {
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-4 w-4 sm:h-5 sm:w-5"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -369,7 +398,7 @@ function Upload() {
               </svg>
             )}
           </span>
-          {toast.message}
+          <span className="text-sm sm:text-base">{toast.message}</span>
         </div>
       )}
 
