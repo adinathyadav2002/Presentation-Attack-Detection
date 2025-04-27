@@ -70,7 +70,6 @@ const Header = () => {
             <div className="hidden lg:flex items-center space-x-8">
               <div className="flex space-x-6">
                 {[
-                  { item: "Home", to: "/" },
                   {
                     item: "Github",
                     to: "https://github.com/adinathyadav2002/Presentation-Attack-Detection",
@@ -166,7 +165,6 @@ const Header = () => {
         >
           <div className="px-2 pt-2 pb-3 space-y-1">
             {[
-              { item: "Home", to: "/" },
               {
                 item: "Github",
                 to: "https://github.com/adinathyadav2002/Presentation-Attack-Detection",
